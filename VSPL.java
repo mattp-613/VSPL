@@ -39,8 +39,8 @@ public class VSPL{
     }
 
     private static void iterateToken(){
-        if(index >= text.size()){
-            index = text.size();
+        if(index == text.size() - 1){
+            index = text.size() - 1;
         }
         else{
         index++;
@@ -54,15 +54,17 @@ public class VSPL{
 
         if(!token.equals("{")){
             error = true;
+            System.out.println("error here (0)");
         }
         iterateToken();
         statement_list();
         if(!token.equals("}")){ //if it doesnt end with a }
             error = true;
+            System.out.println("error here (1)");
         }
         //iterateToken(); //check for any extra text after it ends
         if(!token.equals("}")){ //if it doesnt end with a }
-        error = true;
+            //error = true;
         }
 
         //return null;
@@ -72,17 +74,21 @@ public class VSPL{
         statement();
         if(!token.equals(";")){
             error = true;
+            System.out.println("error here (2)");
         }
         statement_list_prime();
     }
 
     private static void statement_list_prime(){
-        
-        if(!token.equals("$") | !token.equals("}")){
+        while(!token.equals("$") || !token.equals("}")){ //be careful i think this while loop is stupid and will recurse
             statement();
+            System.out.println(!token.equals("$"));
             if(!token.equals(";")){
                 error = true;
+                System.out.println("error here (3)");
+                //break; //shouldn't break as all errors should be parsed without stopping parsing
             }
+
         }
 
     }
@@ -109,7 +115,7 @@ public class VSPL{
         else{
             expression();
         }
-        
+
     }
 
     private static void procedure_call(){
@@ -121,7 +127,9 @@ public class VSPL{
     }
 
     private static void expression(){
-        //return null;
+        if(!token.equals("id")){
+            error=true;
+        }
     }
 
     private static void factor(){
@@ -136,9 +144,10 @@ public class VSPL{
     
         Scanner sc = new Scanner(new File(filename));  
         // sets the delimiter pattern to be every new line
-        //sc.useDelimiter("\n");
+        //sc.useDelimiter("|\\n");
     
         // read points
+        sc.useDelimiter("\n|\r");
         while (sc.hasNext())  
         {  
             String x = sc.next();
@@ -149,7 +158,6 @@ public class VSPL{
     
         return text;
         }
-
 
     public static void main(String[] args)throws Exception {
 
