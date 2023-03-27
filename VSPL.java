@@ -26,6 +26,7 @@ public class VSPL{
         error = false;
 
         System.out.println("Parsing grammar...");
+        System.out.println("Parsing: " + token);
 
         program();
 
@@ -45,6 +46,8 @@ public class VSPL{
         index++;
         token = text.get(index);
         }
+
+        System.out.println("Parsing: " + token);
     }
 
     private static void program(){
@@ -57,7 +60,7 @@ public class VSPL{
         if(!token.equals("}")){ //if it doesnt end with a }
             error = true;
         }
-        iterateToken(); //check for any extra text after it ends
+        //iterateToken(); //check for any extra text after it ends
         if(!token.equals("}")){ //if it doesnt end with a }
         error = true;
         }
@@ -85,7 +88,28 @@ public class VSPL{
     }
 
     private static void statement(){
-        if(!token.equals(""))
+        boolean call = false;
+        if(!token.equals("call") || !token.equals("compute")){
+            error = true;
+        }
+        if(token.equals("call")){ //to determine whether the next operation will be call or compute
+            call = true;
+        }
+        iterateToken();
+        if(!token.equals(":")){
+            error = true;
+        }
+
+        //after this point, we will assume if there was an error that it would be a computation, not a call
+        //so by default if the grammar is wrong and we don't know whether to call or compute, we compute
+
+        if(call){
+            procedure_call();
+        }
+        else{
+            expression();
+        }
+        
     }
 
     private static void procedure_call(){
