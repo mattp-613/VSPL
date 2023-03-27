@@ -38,29 +38,45 @@ public class VSPL{
     }
 
     private static void iterateToken(){
+        if(index >= text.size()){
+            index = text.size();
+        }
+        else{
         index++;
         token = text.get(index);
+        }
     }
 
     private static void program(){
 
-        if(token.equals("{")){
-            iterateToken();
-            statement_list();
-            if(!token.equals("}")){ //if it doesnt end with a }
-                error = true;
-            }
-        }
-
-        else{ //if it doesn't start with a {
+        if(!token.equals("{")){
             error = true;
+        }
+        iterateToken();
+        statement_list();
+        if(!token.equals("}")){ //if it doesnt end with a }
+            error = true;
+        }
+        iterateToken(); //check for any extra text after it ends
+        if(!token.equals("}")){ //if it doesnt end with a }
+        error = true;
         }
 
         //return null;
     }
 
     private static void statement_list(){
-        //return null;
+        statement();
+        if(!token.equals(";")){
+            error = true;
+        }
+    }
+
+    private static void statement_list1(){
+        statement();
+        if(!token.equals(";")){
+            error = true;
+        }
     }
 
     private static void statement(){
