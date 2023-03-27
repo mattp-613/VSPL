@@ -10,22 +10,45 @@ public class VSPL{
     static List<String> text;
     static int index;
     static String token;
+    static boolean error;
 
-    VSPL(List<String> text){
-        this.text = text;
+    VSPL(){
+        //this.text = text;
+        //index = 0;
+        //token = text.get(index);
+    }
+
+    public static String parseText(List<String> inputText){
+
+        text = inputText;
         index = 0;
         token = text.get(index);
+        error = false;
+
+        program();
+
+        if (!error){
+            return ("SUCCESS");
+        }
+        else{
+            return ("ERROR");
+        }
     }
 
     private static void iterateToken(){
         index++;
         token = text.get(index);
     }
+
     private static String program(){
 
-        if(token == "{"){
+        if(token.equals("{")){
             iterateToken();
+        }
 
+        else{
+            System.out.println("ERROR");
+            error = true;
         }
 
         return null;
@@ -103,8 +126,9 @@ public class VSPL{
 
         }
 
-
-
+        VSPL vspl = new VSPL();
+        
+        vspl.parseText(textList);
     }
 
 }
