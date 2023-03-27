@@ -70,17 +70,22 @@ public class VSPL{
         if(!token.equals(";")){
             error = true;
         }
+        statement_list_prime();
     }
 
-    private static void statement_list1(){
-        statement();
-        if(!token.equals(";")){
-            error = true;
+    private static void statement_list_prime(){
+        
+        if(!token.equals("$") | !token.equals("}")){
+            statement();
+            if(!token.equals(";")){
+                error = true;
+            }
         }
+
     }
 
     private static void statement(){
-        //return null;
+        if(!token.equals(""))
     }
 
     private static void procedure_call(){
