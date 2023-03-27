@@ -10,37 +10,41 @@ public class VSPL{
 
 	public static List<String> read(String filename) throws Exception {
 		
-        List<Point3D> points= new ArrayList<Point3D>(); 
-        double x,y,z;
+        List<String> text = new ArrayList<String>(); 
     
         Scanner sc = new Scanner(new File(filename));  
-        // sets the delimiter pattern to be , or \n \r
-        sc.useDelimiter(",|\n|\r");  
-    
-        // skipping the first line x y z
-        sc.next(); sc.next(); sc.next();
+        // sets the delimiter pattern to be every new line
+        //sc.useDelimiter("\n");
     
         // read points
         while (sc.hasNext())  
         {  
-            x= Double.parseDouble(sc.next());
-            y= Double.parseDouble(sc.next());
-            z= Double.parseDouble(sc.next());
-            points.add(new Point3D(x,y,z));  
+            String x = sc.next();
+            text.add(x);  
         }   
     
         sc.close();  //closes the scanner  
     
-        return points;
+        return text;
         }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args)throws Exception {
 
+        String file = new String("input1.txt");
+        
+        try {
+            file = args[0];
+        } catch (Exception e) {
+            // TODO: handle exception
+            ;
+        }
 
+        List<String> textList = new ArrayList<String>(); 
+        textList = read(file);
+        System.out.println("Grammar: \n\n"+textList);
 
-
-
+        
 
 
 
