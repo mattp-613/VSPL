@@ -42,12 +42,12 @@ public class VSPL{
         token = text.get(index);
     }
 
-    private static String program(){
+    private static void program(){
 
         if(token.equals("{")){
             iterateToken();
-
-            if(!token.equals("}"){ //if it doesnt end with a }
+            statement_list();
+            if(!token.equals("}")){ //if it doesnt end with a }
                 error = true;
             }
         }
@@ -56,31 +56,31 @@ public class VSPL{
             error = true;
         }
 
-        return null;
+        //return null;
     }
 
-    private static String statement_list(){
-        return null;
+    private static void statement_list(){
+        //return null;
     }
 
-    private static String statement(){
-        return null;
+    private static void statement(){
+        //return null;
     }
 
-    private static String procedure_call(){
-        return null;
+    private static void procedure_call(){
+        //return null;
     }
 
-    private static String parameters(){
-        return null;
+    private static void parameters(){
+        //return null;
     }
 
-    private static String expression(){
-        return null;
+    private static void expression(){
+        //return null;
     }
 
-    private static String factor(){
-        return null;
+    private static void factor(){
+        //return null;
     }
 
 
