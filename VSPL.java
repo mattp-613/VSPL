@@ -18,20 +18,22 @@ public class VSPL{
         //token = text.get(index);
     }
 
-    public static String parseText(List<String> inputText){
+    public static void parseText(List<String> inputText){
 
         text = inputText;
         index = 0;
         token = text.get(index);
         error = false;
 
+        System.out.println("Parsing grammar...");
+
         program();
 
         if (!error){
-            return ("SUCCESS");
+            System.out.println("SUCCESS");
         }
         else{
-            return ("ERROR");
+            System.out.println("ERROR");
         }
     }
 
@@ -44,10 +46,13 @@ public class VSPL{
 
         if(token.equals("{")){
             iterateToken();
+
+            if(!token.equals("}"){ //if it doesnt end with a }
+                error = true;
+            }
         }
 
-        else{
-            System.out.println("ERROR");
+        else{ //if it doesn't start with a {
             error = true;
         }
 
