@@ -5,40 +5,54 @@ import java.util.ArrayList;
 import java.io.*;  
 import java.util.Scanner;  
 
-
 public class VSPL{
 
-    private static String program(String token){
+    static List<String> text;
+    static int index;
+    static String token;
+
+    VSPL(List<String> text){
+        this.text = text;
+        index = 0;
+        token = text.get(index);
+    }
+
+    private static void iterateToken(){
+        index++;
+        token = text.get(index);
+    }
+    private static String program(){
 
         if(token == "{"){
-            token
-            statement_list
+            iterateToken();
+
         }
 
+        return null;
     }
 
-    private static String statement_list(String token){
-
+    private static String statement_list(){
+        return null;
     }
 
-    private static String statement(String token){
-
+    private static String statement(){
+        return null;
     }
 
-    private static String procedure_call(String token){
-
+    private static String procedure_call(){
+        return null;
     }
 
-    private static String parameters(String token){
-
+    private static String parameters(){
+        return null;
     }
 
-    private static String expression(String token){
-
+    private static String expression(){
+        return null;
     }
 
-    private static String factor(String token){
-
+    private static String factor(){
+        return null;
     }
 
 
@@ -88,8 +102,6 @@ public class VSPL{
 
 
         }
-
-        
 
 
 
