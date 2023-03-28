@@ -143,45 +143,38 @@ public class VSPL{
     }
 
     private static void procedure_call(){
+        //iterateToken();
+        if(!token.equals("id")){
+            error=true;
+            System.out.println("error here (7)");
+        }
         iterateToken();
         if(!token.equals("(")){
             error=true;
             System.out.println("error here (6)");
         }
         iterateToken();
-        if(!token.equals("id")){
-            error=true;
-            System.out.println("error here (7)");
-        }
         parameters();
-        iterateToken();
     }
 
 
     private static void parameters(){
-        iterateToken();
         factor();
         parameters_prime();
     }
 
     private static void parameters_prime(){
         while(!token.equals(")")){
-            factor();
-            iterateToken();
-            if(tokenNext().equals(")")){
-                break;
+            if(token.equals(",")){
+                iterateToken();
+                factor();
             }
-            if(!token.equals(",")){
-                System.out.println("error here(8)");
+            else{
+                factor();
+                iterateToken();
             }
         }
-        iterateToken();
 
-        if(!token.equals(")")){
-            error=true;
-            System.out.println("error here (8.1)");
-        }
-        
         iterateToken();
     }
 
