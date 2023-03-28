@@ -97,20 +97,11 @@ public class VSPL{
     }
 
     private static void statement_list_prime(){
-        while(!token.equals("$") && !token.equals("}")){ //be careful i think this while loop is stupid and will recurse
-            if(!token.equals(";") && !token.equals("$") && !token.equals("}")){
-                error = true;
-                System.out.println("error here (3) due to: " + token);
-                //break; //shouldn't break as all errors should be parsed without stopping parsing
-            }
-
-            else{
+        while(!tokenNext().equals("$") && !tokenNext().equals("}")){ //be careful i think this while loop is stupid and will recurse
                 iterateToken();
                 statement();
-            }
-
         }
-
+        iterateToken();
     }
 
     private static void statement(){
@@ -173,6 +164,10 @@ public class VSPL{
                 factor();
                 iterateToken();
             }
+        }
+
+        if(!token.equals(")")){
+            error=true;
         }
 
         iterateToken();
@@ -239,7 +234,7 @@ public class VSPL{
 
     public static void main(String[] args)throws Exception {
 
-        String file = new String("input1.txt");
+        String file = new String("input3.txt");
         
         try {
             file = args[0];
