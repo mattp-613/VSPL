@@ -62,6 +62,10 @@ public class VSPL{
         System.out.println("Parsing: " + token);
     }
 
+    private static String tokenNext(){
+        return text.get(index+1);
+    }
+
     private static void program(){
 
         if(!token.equals("{")){
@@ -108,7 +112,7 @@ public class VSPL{
 
     private static void statement(){
         boolean call = false;
-        if(!token.equals("call") || !token.equals("compute")){
+        if(!token.equals("call") && !token.equals("compute")){
             error = true;
             System.out.println("error here (4)");
         }
@@ -157,15 +161,16 @@ public class VSPL{
     }
 
     private static void parameters_prime(){
-        iterateToken();
         while(!token.equals(")")){
+            System.out.println("Factory: " + token);
+            factor();
             iterateToken();
-            if(!token.equals(",")){
+            if(!token.equals(",") && !tokenNext().equals(")")){
                 error=true;
                 System.out.println("error here (8)");
             }
-            factor();
         }
+        System.out.println("should not be ): " + token);
         iterateToken();
     }
 
