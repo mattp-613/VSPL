@@ -70,28 +70,29 @@ public class VSPL{
 
         if(!token.equals("{")){
             error = true;
-            System.out.println("error here (0)");
         }
         iterateToken();
         statement_list();
 
         if(!token.equals("}")){ //if it doesnt end with a }
             error = true;
-            System.out.println("error here (1)");
-        }
-        //iterateToken(); //check for any extra text after it ends
-        if(!token.equals("}")){ //if it doesnt end with a }
-            //error = true;
         }
 
-        //return null;
+        iterateToken();
+        if(!token.equals("$")){
+            error = true;
+        }
+
+        if(index + 1 != text.size()){ //if there is anything other than the $
+            error = true;
+        }
+
     }
 
     private static void statement_list(){
         statement();
         if(!token.equals(";")){
             error = true;
-            System.out.println("error here (2)");
         }
         statement_list_prime();
     }
@@ -108,7 +109,6 @@ public class VSPL{
         boolean call = false;
         if(!token.equals("call") && !token.equals("compute")){
             error = true;
-            System.out.println("error here (4)");
         }
         if(token.equals("call")){ //to determine whether the next operation will be call or compute
             call = true;
@@ -116,7 +116,6 @@ public class VSPL{
         iterateToken();
         if(!token.equals(":")){
             error = true;
-            System.out.println("error here (5)");
         }
 
         iterateToken();
@@ -137,12 +136,10 @@ public class VSPL{
         //iterateToken();
         if(!token.equals("id")){
             error=true;
-            System.out.println("error here (7)");
         }
         iterateToken();
         if(!token.equals("(")){
             error=true;
-            System.out.println("error here (6)");
         }
         iterateToken();
         parameters();
@@ -176,12 +173,10 @@ public class VSPL{
     private static void expression(){
         if(!token.equals("id")){
             error=true;
-            System.out.println("error here (9)");
         }
         iterateToken();
         if(!token.equals("=")){
             error=true;
-            System.out.println("error here (10)");
         }
         iterateToken();
         factor();
@@ -205,7 +200,6 @@ public class VSPL{
     private static void factor(){
         if(!token.equals("id") && !token.equals("num")){
             error=true;
-            System.out.println("error here (11)");
         }
     }
 
@@ -234,7 +228,7 @@ public class VSPL{
 
     public static void main(String[] args)throws Exception {
 
-        String file = new String("input3.txt");
+        String file = new String("input1.txt");
         
         try {
             file = args[0];
