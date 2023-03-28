@@ -178,6 +178,11 @@ public class VSPL{
             error=true;
         }
         iterateToken();
+        expression_prime();
+
+    }
+
+    private static  void expression_prime(){
         factor();
 
         //check for + or - here (a bit bad, should fix this. terrible coding.)
@@ -188,10 +193,7 @@ public class VSPL{
             factor();
             iterateToken();
 
-        };
-
-       //else it doesn't matter, we probably get a ;
-
+        }
     }
 
     private static void factor(){
