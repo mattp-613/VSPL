@@ -74,7 +74,7 @@ public class VSPL{
         iterateToken();
         statement_list();
 
-        if(!token.equals("}")){ //if it doesnt end with a }
+        if(!token.equals("}")){
             error = true;
         }
 
@@ -98,7 +98,7 @@ public class VSPL{
     }
 
     private static void statement_list_prime(){
-        while(!tokenNext().equals("$") && !tokenNext().equals("}")){ //be careful i think this while loop is stupid and will recurse
+        while(!tokenNext().equals("$") && !tokenNext().equals("}")){
                 iterateToken();
                 statement();
         }
@@ -133,7 +133,6 @@ public class VSPL{
     }
 
     private static void procedure_call(){
-        //iterateToken();
         if(!token.equals("id")){
             error=true;
         }
@@ -189,9 +188,7 @@ public class VSPL{
             factor();
             iterateToken();
 
-        }
-
-        //System.out.println("should be ;. it is: " + token);
+        };
 
        //else it doesn't matter, we probably get a ;
 
