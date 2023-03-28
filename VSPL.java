@@ -50,6 +50,18 @@ public class VSPL{
         System.out.println("Parsing: " + token);
     }
 
+    private static void deiterateToken(){
+        if(index == 0){
+            index = 0;
+        }
+        else{
+        index--;
+        token = text.get(index);
+        }
+
+        System.out.println("Parsing: " + token);
+    }
+
     private static void program(){
 
         if(!token.equals("{")){
@@ -80,9 +92,8 @@ public class VSPL{
     }
 
     private static void statement_list_prime(){
-        while(!token.equals("$") || !token.equals("}")){ //be careful i think this while loop is stupid and will recurse
+        while(!token.equals("$") && !token.equals("}")){ //be careful i think this while loop is stupid and will recurse
             statement();
-            System.out.println(!token.equals("$"));
             if(!token.equals(";")){
                 error = true;
                 System.out.println("error here (3)");
@@ -127,13 +138,34 @@ public class VSPL{
     }
 
     private static void expression(){
+        iterateToken();
         if(!token.equals("id")){
             error=true;
         }
+        iterateToken();
+        if(!token.equals("=")){
+            error=true;
+        }
+        iterateToken();
+        factor();
+
+        //check for + or - here (a bit bad, should fix this. terrible coding.)
+
+        iterateToken();
+
+        if(token.equals("+") || token.equals("-")){
+            iterateToken();
+            expression();
+        }
+
+       //else it doesn't matter, we probably get a ;
+
     }
 
     private static void factor(){
-        //return null;
+        if(!token.equals("id") || !token.equals("num")){
+            error=true;
+        }
     }
 
 
@@ -147,7 +179,7 @@ public class VSPL{
         //sc.useDelimiter("|\\n");
     
         // read points
-        sc.useDelimiter("\n|\r");
+        //sc.useDelimiter("\n|\r");
         while (sc.hasNext())  
         {  
             String x = sc.next();
