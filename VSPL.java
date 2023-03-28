@@ -70,6 +70,7 @@ public class VSPL{
         }
         iterateToken();
         statement_list();
+        deiterateToken(); //this is very bad but it works
         if(!token.equals("}")){ //if it doesnt end with a }
             error = true;
             System.out.println("error here (1)");
@@ -95,7 +96,7 @@ public class VSPL{
         while(!token.equals("$") && !token.equals("}")){ //be careful i think this while loop is stupid and will recurse
             iterateToken();
             statement();
-            if(!token.equals(";")){
+            if(!token.equals(";") && !token.equals("$") && !token.equals("}")){
                 error = true;
                 System.out.println("error here (3) due to: " + token);
                 //break; //shouldn't break as all errors should be parsed without stopping parsing
@@ -109,6 +110,7 @@ public class VSPL{
         boolean call = false;
         if(!token.equals("call") || !token.equals("compute")){
             error = true;
+            System.out.println("error here (4)");
         }
         if(token.equals("call")){ //to determine whether the next operation will be call or compute
             call = true;
@@ -116,6 +118,7 @@ public class VSPL{
         iterateToken();
         if(!token.equals(":")){
             error = true;
+            System.out.println("error here (5)");
         }
 
         iterateToken();
@@ -133,20 +136,48 @@ public class VSPL{
     }
 
     private static void procedure_call(){
-        //return null;
+        iterateToken();
+        if(!token.equals("(")){
+            error=true;
+            System.out.println("error here (6)");
+        }
+        iterateToken();
+        if(!token.equals("id")){
+            error=true;
+            System.out.println("error here (7)");
+        }
+        parameters();
     }
 
+
     private static void parameters(){
-        //return null;
+        iterateToken();
+        factor();
+        parameters_prime();
+    }
+
+    private static void parameters_prime(){
+        iterateToken();
+        while(!token.equals(")")){
+            iterateToken();
+            if(!token.equals(",")){
+                error=true;
+                System.out.println("error here (8)");
+            }
+            factor();
+        }
+        iterateToken();
     }
 
     private static void expression(){
         if(!token.equals("id")){
             error=true;
+            System.out.println("error here (9)");
         }
         iterateToken();
         if(!token.equals("=")){
             error=true;
+            System.out.println("error here (10)");
         }
         iterateToken();
         factor();
