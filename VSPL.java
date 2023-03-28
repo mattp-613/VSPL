@@ -63,7 +63,7 @@ public class VSPL{
     }
 
     private static String tokenNext(){
-        return text.get(index+1);
+        return text.get(index+1); //assuming that index cannot be greater than arraylist size
     }
 
     private static void program(){
@@ -98,12 +98,16 @@ public class VSPL{
 
     private static void statement_list_prime(){
         while(!token.equals("$") && !token.equals("}")){ //be careful i think this while loop is stupid and will recurse
-            iterateToken();
-            statement();
             if(!token.equals(";") && !token.equals("$") && !token.equals("}")){
                 error = true;
                 System.out.println("error here (3) due to: " + token);
                 //break; //shouldn't break as all errors should be parsed without stopping parsing
+            }
+
+            else{
+                System.out.println("Token that did this: " + token);
+                iterateToken();
+                statement();
             }
 
         }
@@ -162,15 +166,22 @@ public class VSPL{
 
     private static void parameters_prime(){
         while(!token.equals(")")){
-            System.out.println("Factory: " + token);
             factor();
             iterateToken();
-            if(!token.equals(",") && !tokenNext().equals(")")){
-                error=true;
-                System.out.println("error here (8)");
+            if(tokenNext().equals(")")){
+                break;
+            }
+            if(!token.equals(",")){
+                System.out.println("error here(8)");
             }
         }
-        System.out.println("should not be ): " + token);
+        iterateToken();
+
+        if(!token.equals(")")){
+            error=true;
+            System.out.println("error here (8.1)");
+        }
+        
         iterateToken();
     }
 
@@ -234,7 +245,7 @@ public class VSPL{
 
     public static void main(String[] args)throws Exception {
 
-        String file = new String("input1.txt");
+        String file = new String("input3.txt");
         
         try {
             file = args[0];
