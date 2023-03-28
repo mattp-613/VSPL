@@ -93,10 +93,11 @@ public class VSPL{
 
     private static void statement_list_prime(){
         while(!token.equals("$") && !token.equals("}")){ //be careful i think this while loop is stupid and will recurse
+            iterateToken();
             statement();
             if(!token.equals(";")){
                 error = true;
-                System.out.println("error here (3)");
+                System.out.println("error here (3) due to: " + token);
                 //break; //shouldn't break as all errors should be parsed without stopping parsing
             }
 
@@ -116,6 +117,8 @@ public class VSPL{
         if(!token.equals(":")){
             error = true;
         }
+
+        iterateToken();
 
         //after this point, we will assume if there was an error that it would be a computation, not a call
         //so by default if the grammar is wrong and we don't know whether to call or compute, we compute
@@ -138,7 +141,6 @@ public class VSPL{
     }
 
     private static void expression(){
-        iterateToken();
         if(!token.equals("id")){
             error=true;
         }
@@ -152,11 +154,14 @@ public class VSPL{
         //check for + or - here (a bit bad, should fix this. terrible coding.)
 
         iterateToken();
-
         if(token.equals("+") || token.equals("-")){
             iterateToken();
-            expression();
+            factor();
+            iterateToken();
+
         }
+
+        //System.out.println("should be ;. it is: " + token);
 
        //else it doesn't matter, we probably get a ;
 
@@ -208,11 +213,6 @@ public class VSPL{
 
         for(int i = 0;i < textList.size(); i++){
             String token = textList.get(i);
-
-            System.out.println("\n");
-            System.out.println("Current Token: "+token);
-
-
 
         }
 
